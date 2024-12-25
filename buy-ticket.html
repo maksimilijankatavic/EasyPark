@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Parking Ticket - EasyPark</title>
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+    
+    <link rel="stylesheet" href="buy-ticket.css">
+    
+</head>
+<body>
+    <div class="overlay"></div>
+
+    
+    
+    <nav>
+    <img src="pictures/logopicture.png" alt="EasyPark Logo" class="logo">
+        <button class="menu-toggle" aria-label="Toggle navigation menu">
+            <span>☰</span>
+        </button>
+        <ul>
+            <li><a href="pocetna.html">Home</a></li>
+            <li><a href="#login" class="login">Login</a></li>
+            <li><a href="#tickets" class="active">Tickets</a></li>
+            <li><a href="#extension">Active Tickets</a></li>
+            <li><a href="#monthly">Monthly Tickets</a></li>
+            <li><a href="#inspection">Parking Inspection</a></li>
+            <li><a href="#history">Ticket History</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="purchase-container">
+            <h2>Buy Parking Ticket</h2>
+            
+            <div class="progress-bar">
+                <div class="step active">
+                    <span class="step-number">1</span>
+                    <span class="step-text">Vehicle Info</span>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <span class="step-text">Parking Details</span>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <span class="step-text">Payment</span>
+                </div>
+            </div>
+
+            <form id="ticketForm" class="purchase-form">
+                <div class="form-step active" id="step1">
+                    <div class="form-group">
+                        <label for="plateNumber">License Plate Number</label>
+                        <input type="text" id="plateNumber" required placeholder="Enter plate number">
+                    </div>
+                    <div class="form-group">
+                        <label for="vehicleType">Vehicle Type</label>
+                        <select id="vehicleType" required>
+                            <option value="">Select vehicle type</option>
+                            <option value="car">Car</option>
+                            <option value="motorcycle">Motorcycle</option>
+                            <option value="van">Van</option>
+                        </select>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="button next-step">Next</button>
+                    </div>
+                </div>
+
+                <div class="form-step" id="step2">
+                    <div class="form-group">
+                        <label for="parkingLocation">Parking Location</label>
+                        <select id="parkingLocation" required>
+                            <option value="">Select parking location</option>
+                            <option value="central">Central Parking</option>
+                            <option value="north">North Parking</option>
+                            <option value="south">South Parking</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="duration">Duration</label>
+                        <select id="duration" required>
+                            <option value="">Select duration</option>
+                            <option value="1">1 Hour</option>
+                            <option value="2">2 Hours</option>
+                            <option value="4">4 Hours</option>
+                            <option value="day">Full Day</option>
+                        </select>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="button prev-step">Previous</button>
+                        <button type="button" class="button next-step">Next</button>
+                    </div>
+                </div>
+
+                <div class="form-step" id="step3">
+                    <div class="price-summary">
+                        <h3>Price Summary</h3>
+                        <div class="price-details">
+                            <span>Parking Fee:</span>
+                            <span id="parkingFee">$0.00</span>
+                        </div>
+                        <div class="price-details total">
+                            <span>Total:</span>
+                            <span id="totalPrice">$0.00</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number</label>
+                        <input type="text" id="cardNumber" required placeholder="Enter card number">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expiryDate">Expiry Date</label>
+                            <input type="text" id="expiryDate" required placeholder="MM/YY">
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" required placeholder="CVV">
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="button prev-step">Previous</button>
+                        <button type="submit" class="button submit-button">Pay Now</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; EasyPark. All rights reserved.</p>
+    </footer>
+
+    <script src="buy-ticket.js"></script>
+</body>
+</html>
