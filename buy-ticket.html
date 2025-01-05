@@ -8,15 +8,11 @@
     <link rel="stylesheet" href="styles/layout.css">
     <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/responsive.css">
-    
     <link rel="stylesheet" href="buy-ticket.css">
-    
 </head>
 <body>
     <div class="overlay"></div>
 
-    
-    
     <nav>
     <img src="pictures/logopicture.png" alt="EasyPark Logo" class="logo">
         <button class="menu-toggle" aria-label="Toggle navigation menu">
@@ -26,16 +22,16 @@
             <li><a href="pocetna.html">Home</a></li>
             <li><a href="#login" class="login">Login</a></li>
             <li><a href="#tickets" class="active">Tickets</a></li>
-            <li><a href="extend-ticket.html">Extend Ticket</a></li>
+            <li><a href="cancel-ticket.html">Cancel Ticket</a></li>
             <li><a href="#monthly">Monthly Tickets</a></li>
-            <li><a href="#inspection">Parking Inspection</a></li>
+            <li><a href="parking-inspection.html">Parking Inspection</a></li>
             <li><a href="#history">Ticket History</a></li>
         </ul>
     </nav>
 
     <main>
         <div class="purchase-container">
-            <h2>Buy Parking Ticket</h2>
+            <h2>Buy or Extend Parking Ticket</h2>
             
             <div class="progress-bar">
                 <div class="step active">
@@ -58,15 +54,6 @@
                         <label for="plateNumber">License Plate Number</label>
                         <input type="text" id="plateNumber" required placeholder="Enter plate number">
                     </div>
-                    <div class="form-group">
-                        <label for="vehicleType">Vehicle Type</label>
-                        <select id="vehicleType" required>
-                            <option value="">Select vehicle type</option>
-                            <option value="car">Car</option>
-                            <option value="motorcycle">Motorcycle</option>
-                            <option value="van">Van</option>
-                        </select>
-                    </div>
                     <div class="button-group">
                         <button type="button" class="button next-step">Next</button>
                     </div>
@@ -77,18 +64,16 @@
                         <label for="parkingLocation">Parking Location</label>
                         <select id="parkingLocation" required>
                             <option value="">Select parking location</option>
-                            <option value="central">Central Parking</option>
-                            <option value="north">North Parking</option>
-                            <option value="south">South Parking</option>
+                            <option value="2">Parking 2</option>
+                            <option value="3">Parking 3</option>
+                            <option value="4">Parking 4</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="duration">Duration</label>
                         <select id="duration" required>
                             <option value="">Select duration</option>
-                            <option value="1">1 Hour</option>
-                            <option value="2">2 Hours</option>
-                            <option value="4">4 Hours</option>
+                            <option value="hour">1 Hour</option>
                             <option value="day">Full Day</option>
                         </select>
                     </div>
