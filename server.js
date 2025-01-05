@@ -314,7 +314,7 @@ app.patch("/parking/mjesecni-prihod", async (req, res) => {
   }
 });
 
-// *********** prijava korisnika
+// *********** prijava novog korisnika (signup)
 app.post('/osoba/dodaj', async (req, res) => {
   const { korisnicko_ime, lozinka, admin } = req.body;
 
@@ -331,6 +331,28 @@ app.post('/osoba/dodaj', async (req, res) => {
       }
 
       res.status(201).json({ message: 'Osoba uspješno dodana.' });
+  } catch (err) {
+      console.error('Nepoznata greška:', err);
+      res.status(500).json({ error: 'Nepoznata greška.' });
+  }
+});
+
+// *************prijava postojećeg korisnika (login)
+app.get('/osoba/provjeri', async (req, res) => {
+  const { korisnicko_ime, lozinka } = req.body;
+
+  try {
+      const { data, error } = await supabase.rpc('provjeri_korisnika', {
+          p_korisnicko_ime: korisnicko_ime,
+          p_lozinka: lozinka,
+      });
+
+      if (error) {
+          console.error('Greška pri provjeri korisnika:', error);
+          return res.status(500).json({ error: 'Greška pri provjeri korisnika.' });
+      }
+
+      res.status(200).json(data);
   } catch (err) {
       console.error('Nepoznata greška:', err);
       res.status(500).json({ error: 'Nepoznata greška.' });
