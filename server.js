@@ -314,6 +314,29 @@ app.patch("/parking/mjesecni-prihod", async (req, res) => {
   }
 });
 
+// *********** prijava korisnika
+app.post('/osoba/dodaj', async (req, res) => {
+  const { korisnicko_ime, lozinka, admin } = req.body;
+
+  try {
+      const { error } = await supabase.rpc('dodaj_osobu', {
+          p_korisnicko_ime: korisnicko_ime,
+          p_lozinka: lozinka,
+          p_admin: admin,
+      });
+
+      if (error) {
+          console.error('Greška pri dodavanju osobe:', error);
+          return res.status(500).json({ error: 'Greška pri dodavanju osobe.' });
+      }
+
+      res.status(201).json({ message: 'Osoba uspješno dodana.' });
+  } catch (err) {
+      console.error('Nepoznata greška:', err);
+      res.status(500).json({ error: 'Nepoznata greška.' });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server radi na http://localhost:${port}`);
 });
