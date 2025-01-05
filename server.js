@@ -37,7 +37,6 @@ app.get('/slobodna-mjesta/:id', async (req, res) => {
     const { voziloId, parkingId, vrijemeIsteka } = req.body;
   
     try {
-      // Poziv RPC funkcije za dodavanje ili ažuriranje
       const { error } = await supabase.rpc('dodaj_ili_azuriraj_kupljena_karta', {
         p_fk_vozilo: voziloId,
         p_fk_parking: parkingId,
@@ -62,7 +61,6 @@ app.delete('/kupljena-karta/:voziloId', async (req, res) => {
     const { voziloId } = req.params;
   
     try {
-      // Poziv RPC funkcije za brisanje
       const { error } = await supabase.rpc('obrisi_kupljenu_kartu', {
         p_fk_vozilo: voziloId,
       });
@@ -86,7 +84,6 @@ app.delete('/kupljena-karta/:voziloId', async (req, res) => {
     const { idRegistarskaOzn, fkKorisnik } = req.body;
   
     try {
-      // Poziv RPC funkcije
       const { error } = await supabase.rpc('dodaj_novo_vozilo', {
         p_id_registarska_ozn: idRegistarskaOzn,
         p_fk_korisnik: fkKorisnik,
