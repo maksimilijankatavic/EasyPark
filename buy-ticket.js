@@ -142,35 +142,53 @@ document.addEventListener("DOMContentLoaded", function () {
     const parkingId = document.getElementById("parkingLocation").value;
     const duration = document.getElementById("duration").value;
 
-    // Get the current date and time
-    let currentDate = new Date();
-
-    // Add time based on the selected duration
-    if (duration === "hour") {
-      currentDate.setHours(currentDate.getHours() + 1); // Add 1 hour
-    } else if (duration === "day") {
-      currentDate.setDate(currentDate.getDate() + 1); // Add 1 day
+    if (!parkingId) {
+      alert("Please select a parking location.");
+      return;
     }
 
-    // Adjust to local time zone
-    let expiryTime = currentDate
-      .toLocaleString("sv-SE", {
-        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        hour12: false,
-      })
-      .replace(" ", "T");
-    
-    let displayExpiryTime = currentDate.toLocaleString("en-US", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    });
-
     try {
+      // Fetch parking data to check available spots
+      const parkingData = await fetchParkingData(parkingId);
+      if (!parkingData) {
+        alert("Unable to retrieve parking data. Please try again.");
+        return;
+      }
+  
+      const availableSpots = parkingData.slobodna_mjesta;
+      if (availableSpots <= 0) {
+        alert("No parking spots available. Please choose another location.");
+        return;
+      }
+
+      // Get the current date and time
+      let currentDate = new Date();
+
+      // Add time based on the selected duration
+      if (duration === "hour") {
+        currentDate.setHours(currentDate.getHours() + 1); // Add 1 hour
+      } else if (duration === "day") {
+        currentDate.setDate(currentDate.getDate() + 1); // Add 1 day
+      }
+
+      // Adjust to local time zone
+      let expiryTime = currentDate
+        .toLocaleString("sv-SE", {
+          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          hour12: false,
+        })
+        .replace(" ", "T");
+      
+      let displayExpiryTime = currentDate.toLocaleString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+
       // Check if the vehicle exists or add it
       const vehicleResponse = await fetch(
         "http://localhost:3000/vozilo/dodaj",
