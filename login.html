@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parking Inspection - EasyPark</title>
+    <title>Login - Parking Management System</title>
     <link rel="stylesheet" href="styles/variables.css">
     <link rel="stylesheet" href="styles/layout.css">
     <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/responsive.css">
-    <link rel="stylesheet" href="parking-inspection.css">
-    <script src="parking-inspection.js"></script>
+    <link rel="stylesheet" href="login.css">
+    <script src="login.js" defer></script> 
+    <script src="pocetna.js" defer></script>
 </head>
 <body>
     <div class="overlay"></div>
@@ -21,36 +22,29 @@
         </button>
         <ul>
             <li><a href="pocetna.html">Home</a></li>
-            <li><a href="login.html">Login</a></li>
+            <li><a href="login.html" class="active">Login</a></li>
             <li><a href="buy-ticket.html">Tickets</a></li>
             <li><a href="cancel-ticket.html">Cancel Ticket</a></li>
+            <li><a href="parking-inspection.html">Parking Inspection</a></li>
             <li><a href="#monthly">Monthly Tickets</a></li>
-            <li><a href="parking-inspection.html" class="active">Parking Inspection</a></li>
             <li><a href="#history">Ticket History</a></li>
         </ul>
     </nav>
 
     <main>
-        <div class="service-grid">
-            <div class="service-card" id="parking2">
-                <h2>Parking 2</h2>
-                <div class="details-grid parkingDetails">
-                    <p class="parkingDetails">Loading...</p>
-                </div>
-            </div>
-            <div class="service-card" id="parking3">
-                <h2>Parking 3</h2>
-                <div class="details-grid parkingDetails">
-                    <p class="parkingDetails">Loading...</p>
-                </div>
-            </div>
-            <div class="service-card" id="parking4">
-                <h2>Parking 4</h2>
-                <div class="details-grid parkingDetails">
-                    <p class="parkingDetails">Loading...</p>
-                </div>
-            </div>
+        <div class="login-header">
+            <h1>Admin Login</h1>
         </div>
+        <section id="login-section">
+            <form id="login-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+                <button type="submit" class="admin-button">Login</button>
+                <div id="error-message" class="error-message"></div>
+            </form>
+        </section>
     </main>
 
     <footer>
