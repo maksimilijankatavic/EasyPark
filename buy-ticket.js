@@ -62,6 +62,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  document.querySelector(".finish-button").addEventListener("click", () => {
+    alert("Thank you for using EasyPark!");
+    location.href = "pocetna.html"; // Redirect to the homepage
+  });
+
   function validateStep(step) {
     const currentFormStep = formSteps[step];
     const inputs = currentFormStep.querySelectorAll("input, select");
@@ -146,7 +151,24 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (duration === "day") {
       currentDate.setDate(currentDate.getDate() + 1); // Add 1 day
     }
-    let expiryTime = currentDate.toISOString().slice(0, 16); // Format: YYYY-MM-DDTHH:mm
+
+    // Adjust to local time zone
+    let expiryTime = currentDate
+      .toLocaleString("sv-SE", {
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        hour12: false,
+      })
+      .replace(" ", "T");
+    
+    let displayExpiryTime = currentDate.toLocaleString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
 
     try {
       // Check if the vehicle exists or add it
@@ -194,8 +216,15 @@ document.addEventListener("DOMContentLoaded", function () {
         );
       }
 
-      alert("Payment successful! Your ticket has been purchased.");
-      location.reload(); // Reloads the current page
+      // Populate ticket details
+      document.getElementById("ticketVehicleId").textContent = vehicleId;
+      document.getElementById("ticketParkingId").textContent = parkingId;
+      document.getElementById("ticketExpiryDate").textContent = displayExpiryTime;
+
+      // Move to the ticket details step
+      currentStep++;
+      updateFormSteps();
+      updateProgressBar();
     } catch (error) {
       alert(`Error: ${error.message}`);
     }
