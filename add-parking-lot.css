@@ -1,0 +1,63 @@
+main {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    margin-bottom: 2rem;
+    color: var(--primary-blue);
+}
+
+#add-parking-lot-section {
+    width: 100%;
+    max-width: 400px; /* Limit width for better usability */
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+input, select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--medium-gray);
+    border-radius: 5px;
+}
+
+.button {
+    width: 100%; /* Full width for the button */
+    padding: 0.8rem; /* Increased padding for a larger button */
+    background-color: var(--primary-blue); /* Primary blue background */
+    color: var(--white); /* White text */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.button:hover {
+    background-color: var(--accent-orange); /* Change color on hover */
+}
+
+.result-message {
+    margin-top: 1rem;
+    text-align: center;
+    color: green; /* Success message color */
+} 
+
+nav ul {
+    display: flex; /* Use flexbox for the list */
+    list-style: none; /* Remove default list styling */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    justify-content: center; /* Align items to the right */
+    margin-right: 120px;
+}
