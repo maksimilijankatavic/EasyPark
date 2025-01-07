@@ -154,8 +154,13 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("Unable to retrieve parking data. Please try again.");
         return;
       }
-  
+
       const availableSpots = parkingData.slobodna_mjesta;
+      const price =
+        duration === "hour"
+          ? parkingData.cijena_satne
+          : parkingData.cijena_dnevne;
+
       if (availableSpots <= 0) {
         alert("No parking spots available. Please choose another location.");
         return;
@@ -178,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
           hour12: false,
         })
         .replace(" ", "T");
-      
+
       let displayExpiryTime = currentDate.toLocaleString("en-US", {
         weekday: "long",
         year: "numeric",
@@ -234,10 +239,30 @@ document.addEventListener("DOMContentLoaded", function () {
         );
       }
 
+      // Update parking income
+      const incomeResponse = await fetch(
+        "http://localhost:3000/parking/prihod",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            idParking: parkingId,
+            iznos: price,
+          }),
+        }
+      );
+
+      if (!incomeResponse.ok) {
+        throw new Error("Failed to update parking income.");
+      }
+
       // Populate ticket details
       document.getElementById("ticketVehicleId").textContent = vehicleId;
       document.getElementById("ticketParkingId").textContent = parkingId;
-      document.getElementById("ticketExpiryDate").textContent = displayExpiryTime;
+      document.getElementById("ticketExpiryDate").textContent =
+        displayExpiryTime;
 
       // Move to the ticket details step
       currentStep++;
