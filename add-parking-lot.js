@@ -4,33 +4,32 @@ function addParkingLot() {
     const capacity = document.getElementById('capacity').value;
     const availability = document.getElementById('availability').value;
 
-    // Validation checks
+    // Provjera validacije
     const resultMessage = document.getElementById('result-message');
-    resultMessage.textContent = ''; // Clear previous messages
+    resultMessage.textContent = '';
 
     if (!lotName) {
         resultMessage.textContent = 'Please enter a valid parking lot name.';
-        resultMessage.style.color = 'red'; // Error message color
+        resultMessage.style.color = 'red';
         return;
     }
 
     if (!location) {
         resultMessage.textContent = 'Please enter a valid location.';
-        resultMessage.style.color = 'red'; // Error message color
+        resultMessage.style.color = 'red'; 
         return;
     }
 
     if (!capacity || capacity <= 0) {
         resultMessage.textContent = 'Please enter a valid capacity greater than 0.';
-        resultMessage.style.color = 'red'; // Error message color
+        resultMessage.style.color = 'red'; 
         return;
     }
 
-    // Confirmation popup
     const confirmation = confirm(`You are about to add a new parking lot:\n\nName: ${lotName}\nLocation: ${location}\nCapacity: ${capacity}\nAvailability: ${availability}\n\nDo you want to proceed?`);
 
     if (confirmation) {
-        // Simulate adding the parking lot (replace with actual API call)
+        // Simulacija dodavanja parkinga (zamijeniti stvarnim API pozivom)
         const parkingLot = {
             name: lotName,
             location: location,
@@ -38,14 +37,13 @@ function addParkingLot() {
             availability: availability
         };
 
-        // Display success message
+        // uspjesno
         resultMessage.textContent = `Parking Lot "${parkingLot.name}" added successfully!`;
-        resultMessage.style.color = 'green'; // Success message color
+        resultMessage.style.color = 'green';
 
-        // Clear the form
         document.getElementById('add-parking-lot-form').reset();
     } else {
         resultMessage.textContent = 'Operation cancelled.';
-        resultMessage.style.color = 'orange'; // Cancel message color
+        resultMessage.style.color = 'orange';
     }
 } 

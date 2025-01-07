@@ -12,7 +12,7 @@ h1 {
 
 #add-parking-lot-section {
     width: 100%;
-    max-width: 400px; /* Limit width for better usability */
+    max-width: 400px;
     background-color: var(--white);
     padding: 2rem;
     border-radius: 10px;
@@ -33,31 +33,22 @@ input, select {
 }
 
 .button {
-    width: 100%; /* Full width for the button */
-    padding: 0.8rem; /* Increased padding for a larger button */
-    background-color: var(--primary-blue); /* Primary blue background */
-    color: var(--white); /* White text */
+    width: 100%; 
+    padding: 0.8rem; 
+    background-color: var(--primary-blue); 
+    color: var(--white); 
     border: none;
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 5px; 
     cursor: pointer;
-    transition: background-color 0.3s ease; /* Smooth transition */
+    transition: background-color 0.3s ease; 
 }
 
 .button:hover {
-    background-color: var(--accent-orange); /* Change color on hover */
+    background-color: var(--accent-orange); 
 }
 
 .result-message {
     margin-top: 1rem;
     text-align: center;
-    color: green; /* Success message color */
+    color: green; 
 } 
-
-nav ul {
-    display: flex; /* Use flexbox for the list */
-    list-style: none; /* Remove default list styling */
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-    justify-content: center; /* Align items to the right */
-    margin-right: 120px;
-}
