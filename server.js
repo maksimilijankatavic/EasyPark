@@ -331,22 +331,30 @@ app.post('/osoba/provjeri', async (req, res) => {
   const { korisnicko_ime, lozinka } = req.body;
 
   try {
-      const { data, error } = await supabase.rpc('provjeri_korisnika', {
-          p_korisnicko_ime: korisnicko_ime,
-          p_lozinka: lozinka,
-      });
+    const { data, error } = await supabase.rpc('provjeri_korisnika', {
+      p_korisnicko_ime: korisnicko_ime,
+      p_lozinka: lozinka,
+    });
 
-      if (error) {
-          console.error('Greška pri provjeri korisnika:', error);
-          return res.status(500).json({ error: 'Greška pri provjeri korisnika.' });
-      }
+    if (error) {
+      console.error('Greška pri provjeri korisnika:', error);
+      return res.status(500).json({ error: 'Greška pri provjeri korisnika.' });
+    }
 
-      res.status(200).json(data);
+    const { success, message, admin, info_korisnik } = data;
+
+    res.status(200).json({
+      success,
+      message,
+      admin,
+      info_korisnik,
+    });
   } catch (err) {
-      console.error('Nepoznata greška:', err);
-      res.status(500).json({ error: 'Nepoznata greška.' });
+    console.error('Nepoznata greška:', err);
+    res.status(500).json({ error: 'Nepoznata greška.' });
   }
 });
+
 
 //*********dodavanje novog parkinga
 app.post('/add-parking', async (req, res) => {
