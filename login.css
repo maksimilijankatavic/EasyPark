@@ -35,7 +35,7 @@ input {
     text-align: center;
 }
 
-.admin-button {
+button {
     width: 100%;
     font-size: 1rem;
     background-color: var(--primary-blue);
@@ -48,6 +48,29 @@ input {
     transition: all 0.3s ease;
 }
 
-.admin-button:hover {
+button:hover {
     background-color: var(--accent-orange);
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.checkbox-container {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 1rem; /* Razmak ispod checkboxa */
+    font-size: 0.9rem;
+    color: var(--dark-gray); /* Prilagodba boje teksta */
+    white-space: nowrap;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 0.5rem; /* Space between checkbox and label */
+}
+
+#label {
+    padding-bottom: 4.5%;
 }

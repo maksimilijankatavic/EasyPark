@@ -34,7 +34,7 @@
 
     <main>
         <div class="login-header">
-            <h1>Admin Login</h1>
+            <h1>Login</h1>
         </div>
         <section id="login-section">
             <form id="login-form">
@@ -42,8 +42,15 @@
                 <input type="text" id="username" required>
                 <label for="password">Password:</label>
                 <input type="password" id="password" required>
-                <button type="submit" class="admin-button">Login</button>
-                <div id="error-message" class="error-message"></div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="admin-check" name="admin-check">
+                    <label for="admin-check" id="label">Register as Admin</label>
+                </div>
+                <div class="button-container">
+                    <button type="submit" class="login">Login</button>
+                    <button type="submit" class="signup">Sign Up</button>
+                </div>
+                <div id="message" class="message"></div>
             </form>
         </section>
     </main>
