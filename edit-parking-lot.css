@@ -10,7 +10,7 @@ h1 {
     color: var(--primary-blue);
 }
 
-#add-parking-lot-section {
+#edit-parking-lot-section {
     width: 100%;
     max-width: 400px;
     background-color: var(--white);
