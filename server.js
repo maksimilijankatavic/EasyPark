@@ -380,6 +380,33 @@ app.post('/add-parking', async (req, res) => {
   }
 });
 
+//********** uredivanje parkinga
+app.patch('/parking/:id', async (req, res) => {
+  const id_parkinga = parseInt(req.params.id, 10);
+  const { broj_mjesta, FK_admin, FK_grad, FK_zona } = req.body;
+
+  try {
+      const { error } = await supabase.rpc('azuriraj_parking', {
+          p_id_parkinga: id_parkinga,
+          p_broj_mjesta: broj_mjesta || null,
+          p_fk_admin: FK_admin || null,
+          p_fk_grad: FK_grad || null,
+          p_fk_zona: FK_zona || null,
+      });
+
+      if (error) {
+          console.error('Greška pri ažuriranju parkinga:', error);
+          return res.status(500).json({ error: 'Greška pri ažuriranju parkinga.' });
+      }
+
+      res.status(200).json({ message: 'Parking uspješno ažuriran.' });
+  } catch (err) {
+      console.error('Nepoznata greška:', err);
+      res.status(500).json({ error: 'Nepoznata greška.' });
+  }
+});
+
+
 app.listen(port, () => {
   console.log(`Server radi na http://localhost:${port}`);
 });
