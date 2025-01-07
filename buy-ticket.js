@@ -62,6 +62,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  document.querySelector(".finish-button").addEventListener("click", () => {
+    alert("Thank you for using EasyPark!");
+    location.href = "pocetna.html"; // Redirect to the homepage
+  });
+
   function validateStep(step) {
     const currentFormStep = formSteps[step];
     const inputs = currentFormStep.querySelectorAll("input, select");
@@ -137,18 +142,58 @@ document.addEventListener("DOMContentLoaded", function () {
     const parkingId = document.getElementById("parkingLocation").value;
     const duration = document.getElementById("duration").value;
 
-    // Get the current date and time
-    let currentDate = new Date();
-
-    // Add time based on the selected duration
-    if (duration === "hour") {
-      currentDate.setHours(currentDate.getHours() + 1); // Add 1 hour
-    } else if (duration === "day") {
-      currentDate.setDate(currentDate.getDate() + 1); // Add 1 day
+    if (!parkingId) {
+      alert("Please select a parking location.");
+      return;
     }
-    let expiryTime = currentDate.toISOString().slice(0, 16); // Format: YYYY-MM-DDTHH:mm
 
     try {
+      // Fetch parking data to check available spots
+      const parkingData = await fetchParkingData(parkingId);
+      if (!parkingData) {
+        alert("Unable to retrieve parking data. Please try again.");
+        return;
+      }
+
+      const availableSpots = parkingData.slobodna_mjesta;
+      const price =
+        duration === "hour"
+          ? parkingData.cijena_satne
+          : parkingData.cijena_dnevne;
+
+      if (availableSpots <= 0) {
+        alert("No parking spots available. Please choose another location.");
+        return;
+      }
+
+      // Get the current date and time
+      let currentDate = new Date();
+
+      // Add time based on the selected duration
+      if (duration === "hour") {
+        currentDate.setHours(currentDate.getHours() + 1); // Add 1 hour
+      } else if (duration === "day") {
+        currentDate.setDate(currentDate.getDate() + 1); // Add 1 day
+      }
+
+      // Adjust to local time zone
+      let expiryTime = currentDate
+        .toLocaleString("sv-SE", {
+          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          hour12: false,
+        })
+        .replace(" ", "T");
+
+      let displayExpiryTime = currentDate.toLocaleString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+
       // Check if the vehicle exists or add it
       const vehicleResponse = await fetch(
         "http://localhost:3000/vozilo/dodaj",
@@ -194,8 +239,35 @@ document.addEventListener("DOMContentLoaded", function () {
         );
       }
 
-      alert("Payment successful! Your ticket has been purchased.");
-      location.reload(); // Reloads the current page
+      // Update parking income
+      const incomeResponse = await fetch(
+        "http://localhost:3000/parking/prihod",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            idParking: parkingId,
+            iznos: price,
+          }),
+        }
+      );
+
+      if (!incomeResponse.ok) {
+        throw new Error("Failed to update parking income.");
+      }
+
+      // Populate ticket details
+      document.getElementById("ticketVehicleId").textContent = vehicleId;
+      document.getElementById("ticketParkingId").textContent = parkingId;
+      document.getElementById("ticketExpiryDate").textContent =
+        displayExpiryTime;
+
+      // Move to the ticket details step
+      currentStep++;
+      updateFormSteps();
+      updateProgressBar();
     } catch (error) {
       alert(`Error: ${error.message}`);
     }

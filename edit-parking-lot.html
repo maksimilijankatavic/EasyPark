@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Parking Lot - Admin</title>
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+    <link rel="stylesheet" href="styles/navigationplacement.css">
+    <link rel="stylesheet" href="edit-parking-lot.css"> 
+    <script src="edit-parking-lot.js" defer></script> 
+    <script src="pocetna.js" defer></script> 
+</head>
+<body>
+    <div class="overlay"></div>
+    
+    <nav>
+        <img src="pictures/logopicture.png" alt="EasyPark Logo" class="logo">
+        <button class="menu-toggle" aria-label="Toggle navigation menu">
+            <span>☰</span>
+        </button>
+        <ul>
+            <li><a href="add-parking-lot.html">Add New Parking Lot</a></li>
+            <li><a href="edit-parking-lot.html" class="active">Edit Parking Lot</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>Edit Parking Lot</h1>
+        <section id="edit-parking-lot-section">
+            <form id="edit-parking-lot-form">
+                <label for="parking-lot-select">Select Parking Lot:</label>
+                <select id="parking-lot-select" required>
+                    <option value="">-- Select a Parking Lot --</option>
+                    <option value="lot1">Parking Lot 1</option>
+                    <option value="lot2">Parking Lot 2</option>
+                    <option value="lot3">Parking Lot 3</option>
+                </select>
+
+                <label for="lot-name">Parking Lot Name:</label>
+                <input type="text" id="lot-name" required>
+
+                <label for="location">Location:</label>
+                <input type="text" id="location" required>
+
+                <label for="capacity">Capacity:</label>
+                <input type="number" id="capacity" required>
+
+                <label for="availability">Availability:</label>
+                <select id="availability" required>
+                    <option value="available">Available</option>
+                    <option value="full">Full</option>
+                </select>
+
+                <button type="button" class="button" onclick="editParkingLot()">Update Parking Lot</button>
+            </form>
+
+            <div id="result-message" class="result-message"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; EasyPark. All rights reserved.</p>
+    </footer>
+</body>
+</html>

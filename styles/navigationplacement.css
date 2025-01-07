@@ -1,0 +1,13 @@
+
+
+@media (min-width: 1200px){
+    nav ul {
+        display: flex; 
+        list-style: none; 
+        margin: 0; 
+        padding: 0; 
+        justify-content: center; 
+        margin-right: 120px;
+    }
+
+}

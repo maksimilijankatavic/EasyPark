@@ -18,7 +18,6 @@ app.get("/parking/podaci/:id", async (req, res) => {
   }
 
   try {
-    // Dohvati podatke o zoni i cijeni
     const { data: parkingData, error: parkingError } = await supabase.rpc(
       "dohvati_podatke_parkinga",
       {
@@ -40,7 +39,6 @@ app.get("/parking/podaci/:id", async (req, res) => {
       return res.status(404).json({ error: "Parking nije pronađen." });
     }
 
-    // Dohvati broj slobodnih mjesta
     const { data: slobodnaMjestaData, error: slobodnaMjestaError } =
       await supabase.rpc("slobodna_mjesta", {
         parking_id: parkingId,
@@ -64,7 +62,6 @@ app.get("/parking/podaci/:id", async (req, res) => {
         .json({ error: "Neispravan odgovor RPC funkcije za slobodna mjesta." });
     }
 
-    // Spoji podatke i vrati ih klijentu
     const response = {
       ...parkingData[0],
       slobodna_mjesta: slobodnaMjesta,
@@ -111,7 +108,6 @@ app.post("/kupljena-karta", async (req, res) => {
   const { voziloId, parkingId, vrijemeIsteka } = req.body;
 
   try {
-    // Check if the vehicle exists
     const { data: vehicleExists, error: vehicleCheckError } = await supabase
       .from("Vozila")
       .select("id_registarska_ozn")
@@ -119,20 +115,18 @@ app.post("/kupljena-karta", async (req, res) => {
       .single();
 
     if (vehicleCheckError && vehicleCheckError.code !== "PGRST116") {
-      // Handle unexpected errors (PGRST116 is "no rows found" error)
       console.error("Error checking vehicle existence:", vehicleCheckError);
       return res
         .status(500)
         .json({ error: "Error checking vehicle existence." });
     }
 
-    // If the vehicle does not exist, add it
     if (!vehicleExists) {
       const { error: addVehicleError } = await supabase.rpc(
         "dodaj_novo_vozilo",
         {
           p_id_registarska_ozn: voziloId,
-          p_fk_korisnik: null, // Set to null or adjust based on your schema
+          p_fk_korisnik: null,
         }
       );
 
@@ -142,7 +136,6 @@ app.post("/kupljena-karta", async (req, res) => {
       }
     }
 
-    // Proceed with adding or updating the ticket
     const { error: ticketError } = await supabase.rpc(
       "dodaj_ili_azuriraj_kupljena_karta",
       {
@@ -171,15 +164,13 @@ app.delete("/kupljena-karta/:voziloId", async (req, res) => {
   const { voziloId } = req.params;
 
   try {
-    // Check if the vehicle exists in the Vozila table
     const { data: vehicleExists, error: vehicleCheckError } = await supabase
-      .from("Vozila")
-      .select("id_registarska_ozn")
-      .eq("id_registarska_ozn", voziloId)
+      .from("Kupljene_karte")
+      .select("FK_vozilo")
+      .eq("FK_vozilo", voziloId)
       .single();
 
     if (vehicleCheckError && vehicleCheckError.code !== "PGRST116") {
-      // Handle unexpected errors (PGRST116 means "no rows found")
       console.error("Error checking vehicle existence:", vehicleCheckError);
       return res
         .status(500)
@@ -187,13 +178,11 @@ app.delete("/kupljena-karta/:voziloId", async (req, res) => {
     }
 
     if (!vehicleExists) {
-      // If the vehicle does not exist
       return res
         .status(404)
-        .json({ message: "Vehicle does not exist in the Vozila table." });
+        .json({ message: "Ticket doesn't exist." });
     }
 
-    // Call the RPC function to delete the ticket
     const { error: deleteError } = await supabase.rpc("obrisi_kupljenu_kartu", {
       p_fk_vozilo: voziloId,
     });
