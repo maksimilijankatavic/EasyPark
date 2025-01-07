@@ -1,49 +1,60 @@
-function addParkingLot() {
-    const lotName = document.getElementById('lot-name').value.trim();
-    const location = document.getElementById('location').value.trim();
-    const capacity = document.getElementById('capacity').value;
-    const availability = document.getElementById('availability').value;
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("add-parking-lot-form");
+    const messageDiv = document.getElementById("message");
 
-    // Provjera validacije
-    const resultMessage = document.getElementById('result-message');
-    resultMessage.textContent = '';
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
-    if (!lotName) {
-        resultMessage.textContent = 'Please enter a valid parking lot name.';
-        resultMessage.style.color = 'red';
-        return;
-    }
+        const adminInfo = localStorage.getItem("info_korisnik");
+        if (!adminInfo) {
+            displayMessage("Admin information not found in localStorage.", "error");
+            return;
+        }
 
-    if (!location) {
-        resultMessage.textContent = 'Please enter a valid location.';
-        resultMessage.style.color = 'red'; 
-        return;
-    }
+        const adminData = JSON.parse(adminInfo);
+        const FK_admin = adminData.id_osobe;
 
-    if (!capacity || capacity <= 0) {
-        resultMessage.textContent = 'Please enter a valid capacity greater than 0.';
-        resultMessage.style.color = 'red'; 
-        return;
-    }
+        const broj_mjesta = parseInt(document.getElementById("capacity").value, 10);
+        const FK_grad = parseInt(document.getElementById("location").value, 10);
+        const FK_zona = parseInt(document.getElementById("zone").value, 10);
 
-    const confirmation = confirm(`You are about to add a new parking lot:\n\nName: ${lotName}\nLocation: ${location}\nCapacity: ${capacity}\nAvailability: ${availability}\n\nDo you want to proceed?`);
+        if (!broj_mjesta || !FK_grad || !FK_zona) {
+            displayMessage("Please fill in all the fields correctly.", "error");
+            return;
+        }
 
-    if (confirmation) {
-        // Simulacija dodavanja parkinga (zamijeniti stvarnim API pozivom)
-        const parkingLot = {
-            name: lotName,
-            location: location,
-            capacity: capacity,
-            availability: availability
+        const requestData = {
+            broj_mjesta,
+            FK_admin,
+            FK_grad,
+            FK_zona
         };
 
-        // uspjesno
-        resultMessage.textContent = `Parking Lot "${parkingLot.name}" added successfully!`;
-        resultMessage.style.color = 'green';
+        try {
+            const response = await fetch("http://localhost:3000/add-parking", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestData),
+            });
 
-        document.getElementById('add-parking-lot-form').reset();
-    } else {
-        resultMessage.textContent = 'Operation cancelled.';
-        resultMessage.style.color = 'orange';
+            const result = await response.json();
+
+            if (response.ok) {
+                displayMessage(result.message, "success");
+                form.reset();
+            } else {
+                displayMessage(result.error || "Failed to add parking lot.", "error");
+            }
+        } catch (error) {
+            console.error("Error while adding parking lot:", error);
+            displayMessage("An error occurred. Please try again later.", "error");
+        }
+    });
+
+    function displayMessage(message, type) {
+        messageDiv.textContent = message;
+        messageDiv.className = `message ${type}`;
     }
-} 
+});
