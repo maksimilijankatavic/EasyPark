@@ -338,7 +338,7 @@ app.post('/osoba/dodaj', async (req, res) => {
 });
 
 // *************prijava postojećeg korisnika (login)
-app.get('/osoba/provjeri', async (req, res) => {
+app.post('/osoba/provjeri', async (req, res) => {
   const { korisnicko_ime, lozinka } = req.body;
 
   try {
@@ -356,6 +356,30 @@ app.get('/osoba/provjeri', async (req, res) => {
   } catch (err) {
       console.error('Nepoznata greška:', err);
       res.status(500).json({ error: 'Nepoznata greška.' });
+  }
+});
+
+//*********dodavanje novog parkinga
+app.post('/add-parking', async (req, res) => {
+  const { broj_mjesta, FK_admin, FK_grad, FK_zona } = req.body;
+
+  try {
+    const { data, error } = await supabase
+      .rpc('dodaj_novi_parking', { 
+        p_broj_mjesta: broj_mjesta, 
+        p_fk_admin: FK_admin, 
+        p_fk_grad: FK_grad, 
+        p_fk_zona: FK_zona 
+      });
+
+    if (error) {
+      return res.status(400).json({ error: error.message });
+    }
+    return res.json({ message: 'Parking uspješno dodan!' });
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Greška na serveru.' });
   }
 });
 
