@@ -406,6 +406,24 @@ app.patch('/parking/:id', async (req, res) => {
   }
 });
 
+//***********ispis svih parkinga
+app.get('/parking/sve', async (req, res) => {
+  try {
+      const { data, error } = await supabase.rpc('dohvati_sve_parkinge');
+
+      if (error) {
+          console.error('Greška pri dohvaćanju parking ID-ova:', error);
+          return res.status(500).json({ error: 'Greška pri dohvaćanju parking ID-ova.' });
+      }
+
+      res.status(200).json(data);
+  } catch (err) {
+      console.error('Nepoznata greška:', err);
+      res.status(500).json({ error: 'Nepoznata greška.' });
+  }
+});
+
+
 
 app.listen(port, () => {
   console.log(`Server radi na http://localhost:${port}`);
