@@ -100,28 +100,38 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  async function calculatePrice() {
-    const parkingId = document.getElementById("parkingLocation").value;
-    const duration = document.getElementById("duration").value;
-
-    if (!parkingId || !duration) return;
+  async function calculatePriceCalculation(parkingId, duration) {
+    if (!parkingId || !duration) return null;
 
     const parkingData = await fetchParkingData(parkingId);
-    if (!parkingData) {
+    if (!parkingData) return null;
+
+    let price = 0;
+    if (duration === "hour") {
+        price = parkingData.cijena_satne;
+    } else if (duration === "day") {
+        price = parkingData.cijena_dnevne;
+    }
+
+    if (price === null) {
       alert("Unable to retrieve parking data");
       return;
     }
 
-    let price = 0;
-    if (duration === "hour") {
-      price = parkingData.cijena_satne;
-    } else if (duration === "day") {
-      price = parkingData.cijena_dnevne;
-    }
+    return price;
+}
+
+
+  async function calculatePrice() {
+    const parkingId = document.getElementById("parkingLocation").value;
+    const duration = document.getElementById("duration").value;
+  
+    const price = await calculatePriceCalculation(parkingId, duration);
+  
 
     document.getElementById("parkingFee").textContent = `$${price.toFixed(2)}`;
     document.getElementById("totalPrice").textContent = `$${price.toFixed(2)}`;
-  }
+}
 
   document
     .getElementById("parkingLocation")
