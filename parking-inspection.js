@@ -29,7 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function fetchParkingDetails(parkingId) {
         const parkingCard = document.querySelector(`#parking${parkingId} .parkingDetails`);
-        parkingCard.innerHTML = "<p>Loading...</p>";
+        if (parkingCard) {
+            parkingCard.innerHTML = "<p>Loading...</p>";
+        }
 
         try {
             const response = await fetch(`http://localhost:3000/parking/podaci/${parkingId}`);
@@ -42,35 +44,67 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const { id_zone, cijena_satne, cijena_dnevne, slobodna_mjesta } = data;
 
-            parkingCard.innerHTML = `
-                <div class="detail">
-                    <span>📍</span>
-                    <p>Zone: ${id_zone}</p>
-                </div>
-                <div class="detail">
-                    <span>⏱️</span>
-                    <p>Hourly: ${cijena_satne} €</p>
-                </div>
-                <div class="detail">
-                    <span>🌞</span>
-                    <p>Daily: ${cijena_dnevne} €</p>
-                </div>
-                <div class="detail">
-                    <span>🟢</span>
-                    <p>Free: ${slobodna_mjesta}</p>
-                </div>
-            `;
+            if (parkingCard) {
+                parkingCard.innerHTML = `
+                    <div class="detail">
+                        <span>📍</span>
+                        <p>Zone: ${id_zone}</p>
+                    </div>
+                    <div class="detail">
+                        <span>⏱️</span>
+                        <p>Hourly: ${cijena_satne} €</p>
+                    </div>
+                    <div class="detail">
+                        <span>🌞</span>
+                        <p>Daily: ${cijena_dnevne} €</p>
+                    </div>
+                    <div class="detail">
+                        <span>🟢</span>
+                        <p>Free: ${slobodna_mjesta}</p>
+                    </div>
+                `;
+            }
         } catch (error) {
             console.error('Fetch error:', error);
-            parkingCard.innerHTML = `<p>Error: ${error.message}</p>`;
+            if (parkingCard) {
+                parkingCard.innerHTML = `<p>Error: ${error.message}</p>`;
+            }
         }
     }
 
-    function fetchAllParkingDetails() {
-        const parkingIds = [2, 3, 4]; // List of parking IDs to fetch details for
-        parkingIds.forEach(fetchParkingDetails);
+    async function fetchAllParkingDetails() {
+        try {
+            const response = await fetch('http://localhost:3000/parking/sve');
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const parkingIds = await response.json();
+
+            parkingIds.sort((a, b) => a.id_parkinga - b.id_parkinga);
+
+            const serviceGrid = document.querySelector('.service-grid');
+            serviceGrid.innerHTML = '';
+
+            parkingIds.forEach(({ id_parkinga }) => {
+                const parkingCard = document.createElement('div');
+                parkingCard.classList.add('service-card');
+                parkingCard.id = `parking${id_parkinga}`;
+                parkingCard.innerHTML = `
+                    <h2>Parking ${id_parkinga}</h2>
+                    <div class="details-grid parkingDetails">
+                        <p class="parkingDetails">Loading...</p>
+                    </div>
+                `;
+                serviceGrid.appendChild(parkingCard);
+
+                fetchParkingDetails(id_parkinga);
+            });
+        } catch (error) {
+            console.error('Fetch error:', error);
+        }
     }
 
-    // Automatski poziv funkcije
     fetchAllParkingDetails();
 });
