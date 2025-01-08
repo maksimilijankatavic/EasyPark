@@ -32,7 +32,7 @@ input, select {
     border-radius: 5px;
 }
 
-.button {
+.edit {
     width: 100%; 
     border: none;
     border-radius: 5px; 
@@ -48,7 +48,7 @@ input, select {
     transition: all 0.3s ease;
 }
 
-.button:hover {
+.edit:hover {
     background-color: var(--accent-orange);
     transform: scale(1.05);
 }

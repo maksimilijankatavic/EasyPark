@@ -1,56 +1,73 @@
-function editParkingLot() {
-    const parkingLotSelect = document.getElementById('parking-lot-select').value;
-    const lotName = document.getElementById('lot-name').value.trim();
-    const location = document.getElementById('location').value.trim();
-    const capacity = document.getElementById('capacity').value;
-    const availability = document.getElementById('availability').value;
-
-    // Provjera validacije
-    const resultMessage = document.getElementById('result-message');
-    resultMessage.textContent = '';
-
-    if (!parkingLotSelect) {
-        resultMessage.textContent = 'Please select a parking lot.';
-        resultMessage.style.color = 'red'; 
+document.addEventListener("DOMContentLoaded", () => {
+    const parkingLotSelect = document.getElementById("parking-lot-select");
+    const capacityInput = document.getElementById("capacity");
+    const locationSelect = document.getElementById("location");
+    const zoneSelect = document.getElementById("zone");
+    const messageDiv = document.getElementById("message");
+    const editParkingLotForm = document.getElementById("edit-parking-lot-form");
+  
+    const userInfo = JSON.parse(localStorage.getItem("info_korisnik"));
+  
+    if (!userInfo || !userInfo.parking_ids) {
+      messageDiv.textContent = "Error: User data is missing or invalid.";
+      messageDiv.classList.add("error");
+      return;
+    }
+  
+    userInfo.parking_ids.forEach((id) => {
+      const option = document.createElement("option");
+      option.value = id;
+      option.textContent = `Parking ${id}`;
+      parkingLotSelect.appendChild(option);
+    });
+  
+    editParkingLotForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      messageDiv.textContent = "";
+      messageDiv.classList.remove("success", "error");
+  
+      const selectedParkingLot = parkingLotSelect.value;
+      const capacity = capacityInput.value;
+      const location = locationSelect.value;
+      const zone = zoneSelect.value;
+  
+      if (!selectedParkingLot || !capacity || !location || !zone) {
+        messageDiv.textContent = "All fields are required.";
+        messageDiv.classList.add("error");
         return;
-    }
-
-    if (!lotName) {
-        resultMessage.textContent = 'Please enter a valid parking lot name.';
-        resultMessage.style.color = 'red'; 
-        return;
-    }
-
-    if (!location) {
-        resultMessage.textContent = 'Please enter a valid location.';
-        resultMessage.style.color = 'red'; 
-        return;
-    }
-
-    if (!capacity || capacity <= 0) {
-        resultMessage.textContent = 'Please enter a valid capacity greater than 0.';
-        resultMessage.style.color = 'red'; 
-        return;
-    }
-
-    const confirmation = confirm(`You are about to update the parking lot:\n\nName: ${lotName}\nLocation: ${location}\nCapacity: ${capacity}\nAvailability: ${availability}\n\nDo you want to proceed?`);
-
-    if (confirmation) {
-        // Simulacija dodavanja parkinga (zamijeniti stvarnim API pozivom)
-        const updatedParkingLot = {
-            name: lotName,
-            location: location,
-            capacity: capacity,
-            availability: availability
-        };
-
-        // uspjesno
-        resultMessage.textContent = `Parking Lot "${updatedParkingLot.name}" updated successfully!`;
-        resultMessage.style.color = 'green';
-
-        document.getElementById('edit-parking-lot-form').reset();
-    } else {
-        resultMessage.textContent = 'Operation cancelled.';
-        resultMessage.style.color = 'orange'; 
-    }
-} 
+      }
+  
+      const requestData = {
+        broj_mjesta: parseInt(capacity, 10),
+        FK_admin: userInfo.id_osobe,
+        FK_grad: parseInt(location, 10),
+        FK_zona: parseInt(zone, 10),
+      };
+  
+      try {
+        const response = await fetch(`http://localhost:3000/parking/${selectedParkingLot}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+        });
+  
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || "Failed to update parking lot.");
+        }
+  
+        const responseData = await response.json();
+        messageDiv.textContent = responseData.message || "Parking lot updated successfully.";
+        messageDiv.classList.add("success");
+  
+        editParkingLotForm.reset();
+      } catch (error) {
+        console.error("Error updating parking lot:", error);
+        messageDiv.textContent = "Error updating parking lot: " + error.message;
+        messageDiv.classList.add("error");
+      }
+    });
+  });
+  

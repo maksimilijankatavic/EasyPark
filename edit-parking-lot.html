@@ -31,33 +31,34 @@
         <h1>Edit Parking Lot</h1>
         <section id="edit-parking-lot-section">
             <form id="edit-parking-lot-form">
-                <label for="parking-lot-select">Select Parking Lot:</label>
+                <label for="parking-lot-select">Parking Lot:</label>
                 <select id="parking-lot-select" required>
-                    <option value="">-- Select a Parking Lot --</option>
-                    <option value="lot1">Parking Lot 1</option>
-                    <option value="lot2">Parking Lot 2</option>
-                    <option value="lot3">Parking Lot 3</option>
+                    <option value="">Select parking lot</option>
                 </select>
-
-                <label for="lot-name">Parking Lot Name:</label>
-                <input type="text" id="lot-name" required>
-
-                <label for="location">Location:</label>
-                <input type="text" id="location" required>
 
                 <label for="capacity">Capacity:</label>
                 <input type="number" id="capacity" required>
 
-                <label for="availability">Availability:</label>
-                <select id="availability" required>
-                    <option value="available">Available</option>
-                    <option value="full">Full</option>
+                <label for="location">Location:</label>
+                <select id="location" required>
+                    <option value="">Select location</option>
+                    <option value="2">Zagreb</option>
+                    <option value="3">Split</option>
+                    <option value="4">Šibenik</option>
                 </select>
 
-                <button type="button" class="button" onclick="editParkingLot()">Update Parking Lot</button>
+                <label for="zone">Zone:</label>
+                <select id="zone" required>
+                    <option value="">Select zone</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+
+                <button type="submit" class="edit">Edit Parking Lot</button>
             </form>
 
-            <div id="result-message" class="result-message"></div>
+            <div id="message" class="message"></div>
         </section>
     </main>
 
