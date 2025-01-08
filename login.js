@@ -10,6 +10,23 @@ loginForm.addEventListener("submit", async (event) => {
 
     const isSignup = event.submitter.classList.contains("signup");
 
+    function validatePassword(password) {
+        const minLength = 8;
+        const hasUpperCase = /[A-Z]/.test(password);
+        const hasLowerCase = /[a-z]/.test(password);
+        const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+        return password.length >= minLength && hasUpperCase && hasLowerCase && hasSymbol;
+    }
+
+    if (isSignup) {
+        if (!validatePassword(password)) {
+            messageDiv.textContent = "Lozinka mora imati najmanje 8 znakova, barem jedno malo slovo, jedno veliko slovo i jedan simbol.";
+            messageDiv.style.color = "red";
+            return;
+        }
+    }
+
     let url = "";
     let body = {};
     if (isSignup) {
