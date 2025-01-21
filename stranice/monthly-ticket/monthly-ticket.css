@@ -1,0 +1,85 @@
+.ticket-header {
+    text-align: center; 
+    margin: 1.5rem 0; 
+}
+
+#monthly-ticket-section {
+    max-width: 500px; 
+    margin: 0 auto; 
+    background-color: #ffffff; 
+    padding: 1.5rem; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+}
+
+h1 {
+    font-size: 1.8rem; 
+    color: #007bff; 
+}
+
+.form-group {
+    margin-bottom: 1rem; 
+}
+
+label {
+    display: block; 
+    margin-bottom: 0.3rem; 
+    font-weight: bold; 
+    font-size: 0.9rem; 
+}
+
+input, select {
+    width: 100%; 
+    padding: 0.5rem; 
+    margin-bottom: 1rem; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    font-size: 0.9rem; 
+    transition: border-color 0.3s; 
+}
+
+input:focus, select:focus {
+    border-color: #007bff; 
+    outline: none; 
+}
+
+.button-container {
+    text-align: center; 
+}
+
+.buy-ticket {
+    background-color: var(--primary-blue); 
+    color: var(--white); 
+    padding: 0.5rem 1rem; 
+    border: none; 
+    border-radius: 25px; 
+    cursor: pointer; 
+    font-size: 0.9rem; 
+    font-weight: 500; 
+    transition: all 0.3s ease; 
+}
+
+.buy-ticket:hover {
+    background-color: var(--accent-orange); 
+    transform: translateY(-2px); 
+}
+
+.message {
+    margin-top: 1rem; 
+    text-align: center; 
+    font-size: 0.9rem; 
+    color: #d9534f; 
+}
+@media (max-width: 768px) {
+    #monthly-ticket-section {
+        padding: 1rem; 
+    }
+
+    h1 {
+        font-size: 1.5rem; 
+    }
+
+    .buy-ticket {
+        width: 100%; 
+    }
+}

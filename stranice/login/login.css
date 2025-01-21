@@ -27,8 +27,6 @@ input {
     border-radius: 5px;
 }
 
-
-
 .error-message {
     color: red;
     margin-top: 1rem;
@@ -36,7 +34,6 @@ input {
 }
 
 button {
-    width: 100%;
     font-size: 1rem;
     background-color: var(--primary-blue);
     color: var(--white);
@@ -47,6 +44,8 @@ button {
     font-weight: 500;
     transition: all 0.3s ease;
 }
+
+
 
 button:hover {
     background-color: var(--accent-orange);

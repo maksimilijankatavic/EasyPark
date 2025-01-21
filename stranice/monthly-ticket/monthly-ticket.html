@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Parking Management System</title>
+    <title>Buy Monthly Ticket - Parking Management System</title>
     <link rel="stylesheet" href="../../styles/variables.css">
     <link rel="stylesheet" href="../../styles/layout.css">
     <link rel="stylesheet" href="../../styles/common.css">
     <link rel="stylesheet" href="../../styles/responsive.css">
     <link rel="stylesheet" href="../../styles/navigationplacement.css">
-    <link rel="stylesheet" href="login.css">
-    <script src="login.js" defer></script> 
+    <link rel="stylesheet" href="../monthly-ticket/monthly-ticket.css">
+    <script src="../monthly-ticket/monthly-ticket.js" defer></script>
     <script src="../pocetna/pocetna.js" defer></script>
 </head>
 <body>
@@ -23,34 +23,44 @@
         </button>
         <ul>
             <li><a href="../pocetna/pocetna.html">Home</a></li>
-            <li><a href="login.html" class="active">Login</a></li>
+            <li><a href="../login/login.html">Login</a></li>
             <li><a href="../buy-ticket/buy-ticket.html">Tickets</a></li>
             <li><a href="../cancel-ticket/cancel-ticket.html">Cancel Ticket</a></li>
-            <li><a href="../monthly-ticket/monthly-ticket.html">Monthly Tickets</a></li>
+            <li><a href="monthly-ticket.html" class="active">Monthly Tickets</a></li>
             <li><a href="../parking-inspection/parking-inspection.html">Parking Inspection</a></li>
             <li><a href="#history">Ticket History</a></li>
         </ul>
     </nav>
 
     <main>
-        <div class="login-header">
-            <h1>Login</h1>
+        <div class="ticket-header">
+            <h1>Buy Monthly Ticket</h1>
         </div>
-        <section id="login-section">
-            <form id="login-form">
+        
+        <section id="monthly-ticket-section">
+            <form id="monthly-ticket-form">
                 <label for="username">Username:</label>
                 <input type="text" id="username" required>
-                <label for="password">Password:</label>
-                <input type="password" id="password" required>
-                <div class="checkbox-container">
-                    <input type="checkbox" id="admin-check" name="admin-check">
-                    <label for="admin-check" id="label">Register as Admin</label>
-                </div>
+                
+                <label for="license-plate">License Plate:</label>
+                <input type="text" id="license-plate" required>
+                
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date" required>
+                
+                <div class="form-group">
+                    <label for="payment-method">Payment Method:</label>
+                    <select id="payment-method" required>
+                        <option value="" disabled selected>Select a payment method</option>
+                        <option value="credit-card">Credit Card</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="bank-transfer">Bank Transfer</option>
+                    </select>
+                </div> 
                 <div class="button-container">
-                    <button type="submit" class="login">Login</button>
-                    <button type="submit" class="signup">Sign Up</button>
+                    <button type="submit" class="buy-ticket">Buy Ticket</button>
                 </div>
-                <div id="message" class="message"></div>
+                <div id="ticket-message" class="message"></div>
             </form>
         </section>
     </main>
