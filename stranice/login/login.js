@@ -59,7 +59,7 @@ loginForm.addEventListener("submit", async (event) => {
             if (url === "http://localhost:3000/osoba/provjeri") {
                 if (data.success === true && data.admin === true) {
                     localStorage.setItem("info_korisnik", JSON.stringify(data.info_korisnik));
-                    window.location.href = "add-parking-lot.html";
+                    window.location.href = "../add-parking-lot/add-parking-lot.html";
                     return;
                 } else if (data.success === false && data.message) {
                     messageDiv.textContent = data.message;

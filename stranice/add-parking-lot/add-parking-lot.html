@@ -3,39 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Parking Lot - Admin</title>
-    <link rel="stylesheet" href="styles/variables.css">
-    <link rel="stylesheet" href="styles/layout.css">
-    <link rel="stylesheet" href="styles/common.css">
-    <link rel="stylesheet" href="styles/responsive.css">
-    <link rel="stylesheet" href="styles/navigationplacement.css">
-    <link rel="stylesheet" href="edit-parking-lot.css"> 
-    <script src="edit-parking-lot.js" defer></script> 
-    <script src="pocetna.js" defer></script> 
+    <title>Add New Parking Lot - Admin</title>
+    <link rel="stylesheet" href="../../styles/variables.css">
+    <link rel="stylesheet" href="../../styles/layout.css">
+    <link rel="stylesheet" href="../../styles/common.css">
+    <link rel="stylesheet" href="../../styles/responsive.css">
+    <link rel="stylesheet" href="../../styles/navigationplacement.css">
+    <link rel="stylesheet" href="add-parking-lot.css"> 
+    <script src="add-parking-lot.js" defer></script> 
+    <script src="../pocetna/pocetna.js" defer></script> 
 </head>
 <body>
     <div class="overlay"></div>
     
     <nav>
-        <img src="pictures/logopicture.png" alt="EasyPark Logo" class="logo">
+        <img src="../../pictures/logopicture.png" alt="EasyPark Logo" class="logo">
         <button class="menu-toggle" aria-label="Toggle navigation menu">
             <span>☰</span>
         </button>
         <ul>
-            <li><a href="add-parking-lot.html">Add New Parking Lot</a></li>
-            <li><a href="edit-parking-lot.html" class="active">Edit Parking Lot</a></li>
+            <li><a href="../add-parking-lot/add-parking-lot.html" class="active">Add New Parking Lot</a></li>
+            <li><a href="../edit-parking-lot/edit-parking-lot.html">Edit Parking Lot</a></li>
         </ul>
     </nav>
 
     <main>
-        <h1>Edit Parking Lot</h1>
-        <section id="edit-parking-lot-section">
-            <form id="edit-parking-lot-form">
-                <label for="parking-lot-select">Parking Lot:</label>
-                <select id="parking-lot-select" required>
-                    <option value="">Select parking lot</option>
-                </select>
-
+        <h1>Add New Parking Lot</h1>
+        <section id="add-parking-lot-section">
+            <form id="add-parking-lot-form">
                 <label for="capacity">Capacity:</label>
                 <input type="number" id="capacity" required>
 
@@ -55,7 +50,7 @@
                     <option value="3">3</option>
                 </select>
 
-                <button type="submit" class="edit">Edit Parking Lot</button>
+                <button type="submit" class="add">Add Parking Lot</button>
             </form>
 
             <div id="message" class="message"></div>
@@ -66,4 +61,4 @@
         <p>&copy; EasyPark. All rights reserved.</p>
     </footer>
 </body>
-</html>
+</html> 

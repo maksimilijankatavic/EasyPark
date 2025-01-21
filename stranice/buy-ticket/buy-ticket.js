@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.querySelector(".finish-button").addEventListener("click", () => {
     alert("Thank you for using EasyPark!");
-    location.href = "pocetna.html"; // Redirect to the homepage
+    location.href = "../pocetna/pocetna.html"; // Redirect to the homepage
   });
 
   function validateStep(step) {
