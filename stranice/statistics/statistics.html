@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Statistics - Admin</title>
+    <link rel="stylesheet" href="../../styles/variables.css">
+    <link rel="stylesheet" href="../../styles/layout-admin.css">
+    <link rel="stylesheet" href="../../styles/common.css">
+    <link rel="stylesheet" href="../../styles/responsive.css">
+    <link rel="stylesheet" href="../../styles/navigationplacement.css">
+    <link rel="stylesheet" href="statistics.css">
+    <script src="statistics.js" defer></script>
+    <script src="../pocetna/pocetna.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="overlay"></div>
+    
+    <nav>
+        <img src="../../pictures/logopicture.png" alt="EasyPark Logo" class="logo">
+        <button class="menu-toggle" aria-label="Toggle navigation menu">
+            <span>☰</span>
+        </button>
+        <ul>
+            <li><a href="statistics.html" class="active">View Statistics</a></li>
+            <li><a href="../add-parking-lot/add-parking-lot.html">Add New Parking Lot</a></li>
+            <li><a href="../edit-parking-lot/edit-parking-lot.html">Edit Parking Lot</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div id="parkingStatsContainer"></div>
+    </main>
+
+    <footer>
+        <p>&copy; EasyPark. All rights reserved.</p>
+    </footer>
+</body>
+</html> 
