@@ -58,3 +58,12 @@ input, select {
     text-align: center;
     color: green; 
 } 
+
+.sign-out {
+    margin-left: 1rem;
+    margin-right: 5rem;
+}
+
+nav ul {
+    margin-left: 180px;
+}
