@@ -5,5 +5,8 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "node": "^23.5.0"
+  },
+  "devDependencies": {
+    "cypress": "^14.0.0"
   }
 }
