@@ -423,6 +423,30 @@ app.get('/parking/sve', async (req, res) => {
   }
 });
 
+app.get('/parking/prihod/:id_parkinga', async (req, res) => {
+  const { id_parkinga } = req.params;
+
+  try {
+      const { data, error } = await supabase.rpc('dohvati_mjesecni_prihod', {
+          p_id_parkinga: id_parkinga,
+      });
+
+      if (error) {
+          console.error('Greška pri dohvaćanju mjesečnog prihoda:', error);
+          return res.status(500).json({ error: 'Greška pri dohvaćanju mjesečnog prihoda.' });
+      }
+
+      if (!data) {
+          return res.status(404).json({ error: 'Parking s navedenim ID-om ne postoji.' });
+      }
+
+      res.status(200).json({ mjesecni_prihod: data });
+  } catch (err) {
+      console.error('Nepoznata greška:', err);
+      res.status(500).json({ error: 'Nepoznata greška.' });
+  }
+});
+
 
 
 app.listen(port, () => {
