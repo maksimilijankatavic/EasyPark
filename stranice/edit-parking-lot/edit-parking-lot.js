@@ -14,13 +14,15 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
   
-    userInfo.parking_ids.forEach((id) => {
-      const option = document.createElement("option");
-      option.value = id;
-      option.textContent = `Parking ${id}`;
-      parkingLotSelect.appendChild(option);
-    });
-  
+    userInfo.parking_ids
+      .sort((a, b) => a - b)
+      .forEach((id) => {
+        const option = document.createElement("option");
+        option.value = id;
+        option.textContent = `Parking ${id}`;
+        parkingLotSelect.appendChild(option);
+      });
+
     editParkingLotForm.addEventListener("submit", async (event) => {
       event.preventDefault();
       messageDiv.textContent = "";
