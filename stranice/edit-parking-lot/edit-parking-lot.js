@@ -69,5 +69,14 @@ document.addEventListener("DOMContentLoaded", () => {
         messageDiv.classList.add("error");
       }
     });
+
+    const signOutButton = document.getElementById("sign-out");
+    if (signOutButton) {
+        signOutButton.addEventListener("click", (event) => {
+            event.preventDefault();
+            localStorage.clear();
+            window.location.href = "../login/login.html";
+        });
+    }
   });
   
