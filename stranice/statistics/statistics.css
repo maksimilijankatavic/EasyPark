@@ -1,0 +1,25 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    grid-template-rows: auto 1fr;
+}
+
+.overall-chart-container {
+    grid-column: span 3;
+}
+
+.parking-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.parking-card.overall-chart-container {
+    padding: 0px;
+    box-shadow: none;
+    border: 0px;
+}

@@ -1,0 +1,109 @@
+header {
+    background-color: var(--primary-blue);
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    color: var(--white);
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+nav {
+    background-color: var(--white);
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    height: 30px;
+    margin-left: 1rem;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: nowrap;
+}
+
+nav li {
+    position: relative;
+}
+
+nav a {
+    color: var(--dark-gray);
+    text-decoration: none;
+    padding: 0.7rem 1rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+nav a::before {
+    font-size: 1.2rem;
+}
+
+nav li:nth-child(1) a::before { content: '📊'; }
+nav li:nth-child(2) a::before { content: '➕'; }
+nav li:nth-child(3) a::before { content: '✏️'; }
+
+nav a:hover {
+    background-color: var(--very-light-blue);
+    color: var(--primary-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.2);
+}
+
+nav li {
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: fadeInDown 0.5s ease forwards;
+}
+
+@keyframes fadeInDown {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+nav li:nth-child(1) { animation-delay: 0.1s; }
+nav li:nth-child(2) { animation-delay: 0.2s; }
+nav li:nth-child(3) { animation-delay: 0.3s; }
+nav li:nth-child(4) { animation-delay: 0.4s; }
+nav li:nth-child(5) { animation-delay: 0.5s; }
+nav li:nth-child(6) { animation-delay: 0.6s; }
+nav li:nth-child(7) { animation-delay: 0.7s; }
+
+nav a.active {
+    background-color: var(--primary-blue);
+    color: var(--white);
+}
+
+footer {
+    background-color: var(--white);
+    color: var(--dark-gray);
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+    margin-top: auto;
+}
+
+
+
+
