@@ -24,25 +24,6 @@
     border: 0px;
 }
 
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background-color: var(--white);
-}
-
-ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-ul li {
-    margin: 0 1rem;
-}
-
 .sign-out {
     margin-left: 1rem;
     margin-right: 5rem;

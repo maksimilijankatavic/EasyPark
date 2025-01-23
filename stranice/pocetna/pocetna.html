@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="../../styles/responsive.css">
     <link rel="stylesheet" href="../../styles/navigationplacement.css">
     <link rel="stylesheet" href="pocetna.css">
-    <script src="pocetna.js"></script>
+    <script defer src="pocetna.js"></script>
 </head>
 <body>
     <div class="overlay"></div>
-    
+
     <nav>
         <img src="../../pictures/logopicture.png" alt="EasyPark Logo" class="logo">
         <button class="menu-toggle" aria-label="Toggle navigation menu">
@@ -22,12 +22,12 @@
         </button>
         <ul>
             <li><a href="pocetna.html" class="active">Home</a></li>
-            <li><a href="../login/login.html" class="login">Login</a></li>
+            <li><a href="../login/login.html">Login</a></li>
             <li><a href="../buy-ticket/buy-ticket.html">Tickets</a></li>
             <li><a href="../cancel-ticket/cancel-ticket.html">Cancel Ticket</a></li>
-            <li><a href="../monthly-ticket/monthly-ticket.html">Monthly Tickets</a></li>
             <li><a href="../parking-inspection/parking-inspection.html">Parking Inspection</a></li>
-            <li><a href="#history">Ticket History</a></li>
+            <li id="monthly-ticket" style="display: none;"><a href="../monthly-ticket/monthly-ticket.html">Monthly Tickets</a></li>
+            <li id="ticket-history" style="display: none;"><a href="#history">Ticket History</a></li>
         </ul>
     </nav>
 
@@ -38,20 +38,31 @@
                 <p>Easily purchase or extend your parking ticket for your desired duration.</p>
                 <a href="../buy-ticket/buy-ticket.html" class="button">Buy/Extend Now</a>
             </div>
-            <div class="service-card">
+
+            <!-- Monthly Reservation (Sakriveno za ne logirane korisnike) -->
+            <div class="service-card" id="monthly-reservation" style="display: none;">
                 <h2>Monthly Reservation</h2>
                 <p>Reserve your monthly parking spot</p>
                 <a href="../monthly-ticket/monthly-ticket.html" class="button">Reserve</a>
             </div>
+
             <div class="service-card">
                 <h2>Cancel Ticket</h2>
                 <p>Cancel your existing parking ticket</p>
                 <a href="../cancel-ticket/cancel-ticket.html" class="button">Cancel</a>
             </div>
+
             <div class="service-card">
                 <h2>Parking Status</h2>
                 <p>Check available parking spaces</p>
                 <a href="../parking-inspection/parking-inspection.html" class="button">Check Now</a>
+            </div>
+
+            <!-- Service Card for Login (Vidljivo samo ne logiranim korisnicima) -->
+            <div class="service-card" id="login-service">
+                <h2>Login to Access More Features</h2>
+                <p>Sign in to unlock monthly reservations and ticket history.</p>
+                <a href="../login/login.html" class="button">Login Now</a>
             </div>
         </div>
     </main>
@@ -59,5 +70,31 @@
     <footer>
         <p>&copy; EasyPark. All rights reserved.</p>
     </footer>
+
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    
+        // Prikazujemo status na ekranu
+        let statusDiv = document.createElement("div");
+        statusDiv.style.position = "fixed";
+        statusDiv.style.bottom = "10px";
+        statusDiv.style.right = "10px";
+        statusDiv.style.backgroundColor = "black";
+        statusDiv.style.color = "white";
+        statusDiv.style.padding = "10px";
+        statusDiv.style.borderRadius = "5px";
+        statusDiv.style.zIndex = "1000";
+    
+        if (isLoggedIn) {
+            statusDiv.innerHTML = "✅ Ulogiran";
+        } else {
+            statusDiv.innerHTML = "❌ Nije ulogiran";
+        }
+    
+        document.body.appendChild(statusDiv);
+    });
+    </script>
+    
 </html>
