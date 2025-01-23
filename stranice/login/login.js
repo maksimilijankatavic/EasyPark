@@ -58,8 +58,14 @@ loginForm.addEventListener("submit", async (event) => {
         if (response.ok) {
             if (url === "http://localhost:3000/osoba/provjeri") {
                 if (data.success === true && data.admin === true) {
+                    data.info_korisnik = { ...data.info_korisnik, admin: true };
                     localStorage.setItem("info_korisnik", JSON.stringify(data.info_korisnik));
                     window.location.href = "../statistics/statistics.html";
+                    return;
+                } else if (data.success === true && data.admin === false) {
+                    data.info_korisnik = { ...data.info_korisnik, admin: false };
+                    localStorage.setItem("info_korisnik", JSON.stringify(data.info_korisnik));
+                    window.location.href = "../pocetna/pocetna.html";
                     return;
                 } else if (data.success === false && data.message) {
                     messageDiv.textContent = data.message;

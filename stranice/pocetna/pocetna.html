@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../../styles/navigationplacement.css">
     <link rel="stylesheet" href="pocetna.css">
     <script defer src="pocetna.js"></script>
+    <script src="../logiranje.js"></script>
 </head>
 <body>
     <div class="overlay"></div>
@@ -22,7 +23,7 @@
         </button>
         <ul>
             <li><a href="pocetna.html" class="active">Home</a></li>
-            <li><a href="../login/login.html">Login</a></li>
+            <li id="login"><a href="../login/login.html">Login</a></li>
             <li><a href="../buy-ticket/buy-ticket.html">Tickets</a></li>
             <li><a href="../cancel-ticket/cancel-ticket.html">Cancel Ticket</a></li>
             <li><a href="../parking-inspection/parking-inspection.html">Parking Inspection</a></li>
@@ -74,26 +75,13 @@
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-    
-        // Prikazujemo status na ekranu
-        let statusDiv = document.createElement("div");
-        statusDiv.style.position = "fixed";
-        statusDiv.style.bottom = "10px";
-        statusDiv.style.right = "10px";
-        statusDiv.style.backgroundColor = "black";
-        statusDiv.style.color = "white";
-        statusDiv.style.padding = "10px";
-        statusDiv.style.borderRadius = "5px";
-        statusDiv.style.zIndex = "1000";
-    
+        let infoKorisnik = JSON.parse(localStorage.getItem("info_korisnik"));
+        let isLoggedIn = infoKorisnik !== null && infoKorisnik.admin === false;
+
         if (isLoggedIn) {
-            statusDiv.innerHTML = "✅ Ulogiran";
-        } else {
-            statusDiv.innerHTML = "❌ Nije ulogiran";
+            document.getElementById('monthly-reservation').style.display = 'block';
+            document.getElementById('login-service').style.display = 'none';
         }
-    
-        document.body.appendChild(statusDiv);
     });
     </script>
     
