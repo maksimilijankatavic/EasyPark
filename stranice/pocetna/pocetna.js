@@ -26,4 +26,16 @@ document.addEventListener('DOMContentLoaded', function() {
             overlay.classList.remove('active');
         });
     });
+
+    let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";// ovo je tu simulirano trenutno
+
+    if (isLoggedIn) {
+        // Elementi za logirane korisnike
+        document.getElementById("monthly-ticket").style.display = "inline";
+        document.getElementById("ticket-history").style.display = "inline";
+        document.getElementById("monthly-reservation").style.display = "block";
+
+        // Sakrij sa logirane korisnike
+        document.getElementById("login-service").style.display = "none";
+    }
 });
