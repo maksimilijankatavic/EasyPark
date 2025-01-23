@@ -423,8 +423,9 @@ app.get('/parking/sve', async (req, res) => {
   }
 });
 
+//***********ispis prihoda nekog prkinga
 app.get('/parking/prihod/:id_parkinga', async (req, res) => {
-  const { id_parkinga } = req.params;
+  const { id_parkinga } = req.params; 
 
   try {
       const { data, error } = await supabase.rpc('dohvati_mjesecni_prihod', {
@@ -441,6 +442,31 @@ app.get('/parking/prihod/:id_parkinga', async (req, res) => {
       }
 
       res.status(200).json({ mjesecni_prihod: data });
+  } catch (err) {
+      console.error('Nepoznata greška:', err);
+      res.status(500).json({ error: 'Nepoznata greška.' });
+  }
+});
+
+//****************** dohvaćanje karata korisnika
+app.get('/osoba/karte/:korisnicko_ime', async (req, res) => {
+  const { korisnicko_ime } = req.params;
+
+  try {
+      const { data, error } = await supabase.rpc('dohvati_karte_za_korisnika', {
+          p_korisnicko_ime: korisnicko_ime,
+      });
+
+      if (error) {
+          console.error('Greška pri dohvaćanju karata:', error);
+          return res.status(500).json({ error: 'Greška pri dohvaćanju karata.' });
+      }
+
+      if (!data || data.length === 0) {
+          return res.status(404).json({ error: 'Korisnik nema kupljenih karata ili ne postoji.' });
+      }
+
+      res.status(200).json({ karte: data });
   } catch (err) {
       console.error('Nepoznata greška:', err);
       res.status(500).json({ error: 'Nepoznata greška.' });
