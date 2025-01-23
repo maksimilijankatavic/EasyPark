@@ -21,25 +21,20 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.appendChild(statusDiv);
 
     if (isLoggedIn) {
-        // Elementi za logirane korisnike
-        document.getElementById("monthly-ticket").style.display = "inline";
-        document.getElementById("ticket-history").style.display = "inline";
-        document.getElementById("monthly-reservation").style.display = "block";
+        document.getElementById('monthly-ticket').style.display = 'block';
+        document.getElementById('ticket-history').style.display = 'block';
+        document.getElementById('login').style.display = 'none';
 
-        // Sakrij sa logirane korisnike
-        document.getElementById("login-service").style.display = "none";
-
-        // Set margin for the navigation ul
         const navUl = document.querySelector('nav ul');
-        navUl.style.marginLeft = '180px'; // Set left margin for the navigation
+        navUl.style.marginLeft = '180px';
     } else {
-        // Elements for non-logged-in users
-        const navUl = document.querySelector('nav ul');
-        navUl.style.marginLeft = '0'; // Reset left margin for non-logged-in users
+    // Elementi za ne logirane korisnike
+    const navUl = document.querySelector('nav ul');
+    navUl.style.marginLeft = '0';
 
-        // Hide the Sign Out button
-        const signOutButton = document.querySelector('.sign-out');
-        signOutButton.style.display = 'none'; // Hide the Sign Out button
-    }
+    // Sakrij sign out tipku
+    const signOutButton = document.querySelector('.sign-out');
+    signOutButton.style.display = 'none';
+}
     
 });
