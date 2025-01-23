@@ -14,27 +14,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (isLoggedIn) {
         statusDiv.innerHTML = "✅ Ulogiran";
-    } else {
-        statusDiv.innerHTML = "❌ Nije ulogiran";
-    }
-
-    document.body.appendChild(statusDiv);
-
-    if (isLoggedIn) {
         document.getElementById('monthly-ticket').style.display = 'block';
-        document.getElementById('ticket-history').style.display = 'block';
         document.getElementById('login').style.display = 'none';
+
+        // Prikazivanje Sign Out gumba
+        const signOutButton = document.getElementById('sign-out');
+        signOutButton.style.display = 'block';
 
         const navUl = document.querySelector('nav ul');
         navUl.style.marginLeft = '180px';
-    } else {
-    // Elementi za ne logirane korisnike
-    const navUl = document.querySelector('nav ul');
-    navUl.style.marginLeft = '0';
 
-    // Sakrij sign out tipku
-    const signOutButton = document.querySelector('.sign-out');
-    signOutButton.style.display = 'none';
-}
-    
+        // Dodavanje funkcionalnosti za odjavu
+        signOutButton.addEventListener("click", function () {
+            localStorage.removeItem("info_korisnik");
+            window.location.reload();
+        });
+
+    } else {
+        statusDiv.innerHTML = "❌ Nije ulogiran";
+
+        const navUl = document.querySelector('nav ul');
+        navUl.style.marginLeft = '0';
+
+        // Sakrij sign-out tipku
+        document.getElementById('sign-out').style.display = 'none';
+    }
+
+    document.body.appendChild(statusDiv);
 });
