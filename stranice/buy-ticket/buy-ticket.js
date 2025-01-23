@@ -21,7 +21,33 @@ document.addEventListener("DOMContentLoaded", function () {
   const prevButtons = document.querySelectorAll(".prev-step");
   const formSteps = document.querySelectorAll(".form-step");
   const progressSteps = document.querySelectorAll(".step");
+  const parkingLocation = document.getElementById("parkingLocation");
   let currentStep = 0;
+
+  async function fetchAllParkingDetails() {
+    try {
+        const response = await fetch('http://localhost:3000/parking/sve');
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const parkingIds = await response.json();
+
+        parkingIds.sort((a, b) => a.id_parkinga - b.id_parkinga);
+
+        parkingIds.forEach((parking) => {
+          const option = document.createElement("option");
+          option.value = parking.id_parkinga;
+          option.textContent = `Parking ${parking.id_parkinga}`;
+          parkingLocation.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+  }
+
+  fetchAllParkingDetails();
 
   nextButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -30,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
         updateFormSteps();
         updateProgressBar();
         if (currentStep === 2) {
-          calculatePrice(); // Calculate price at step 2
+          calculatePrice();
         }
       }
     });
@@ -64,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.querySelector(".finish-button").addEventListener("click", () => {
     alert("Thank you for using EasyPark!");
-    location.href = "../pocetna/pocetna.html"; // Redirect to the homepage
+    location.href = "../pocetna/pocetna.html";
   });
 
   function validateStep(step) {
@@ -123,14 +149,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   async function calculatePrice() {
-    const parkingId = document.getElementById("parkingLocation").value;
+    const parkingId = parkingLocation.value;
     const duration = document.getElementById("duration").value;
   
     const price = await calculatePriceCalculation(parkingId, duration);
   
-
-    document.getElementById("parkingFee").textContent = `$${price.toFixed(2)}`;
-    document.getElementById("totalPrice").textContent = `$${price.toFixed(2)}`;
+    if (price !== null && price !== undefined) {
+      document.getElementById("parkingFee").textContent = `$${price.toFixed(2)}`;
+      document.getElementById("totalPrice").textContent = `$${price.toFixed(2)}`;
+    }
 }
 
   document
@@ -149,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Function to handle ticket purchase
   async function buyTicket() {
     const vehicleId = document.getElementById("plateNumber").value;
-    const parkingId = document.getElementById("parkingLocation").value;
+    const parkingId = parkingLocation.value;
     const duration = document.getElementById("duration").value;
 
     if (!parkingId) {
