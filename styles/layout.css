@@ -64,6 +64,7 @@ nav li:nth-child(3) a::before { content: '🎫'; }
 nav li:nth-child(4) a::before { content: '🚫'; }
 nav li:nth-child(5) a::before { content: '🔍'; }
 nav li:nth-child(6) a::before { content: '📅'; }
+nav li:nth-child(7) a::before { content: '🔄'; }
 
 nav a:hover {
     background-color: var(--very-light-blue);
