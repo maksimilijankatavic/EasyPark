@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cancel Ticket - Parking Management System</title>
+    <title>Extend Ticket - EasyPark</title>
     <link rel="stylesheet" href="../../styles/variables.css">
     <link rel="stylesheet" href="../../styles/layout.css">
     <link rel="stylesheet" href="../../styles/common.css">
     <link rel="stylesheet" href="../../styles/responsive.css">
     <link rel="stylesheet" href="../../styles/navigationplacement.css">
-    <link rel="stylesheet" href="cancel-ticket.css">
-    <script defer src="cancel-ticket.js"></script>
+    <link rel="stylesheet" href="extend-ticket.css">
+    <script src="extend-ticket.js"></script>
     <script src="../logiranje.js"></script>
 </head>
 <body>
@@ -25,27 +25,21 @@
             <li><a href="../pocetna/pocetna.html">Home</a></li>
             <li id="login"><a href="../login/login.html">Login</a></li>
             <li><a href="../buy-ticket/buy-ticket.html">Tickets</a></li>
-            <li><a href="../cancel-ticket/cancel-ticket.html" class="active">Cancel Ticket</a></li>
+            <li><a href="../cancel-ticket/cancel-ticket.html">Cancel Ticket</a></li>
             <li><a href="../parking-inspection/parking-inspection.html">Parking Inspection</a></li>
             <li id="monthly-ticket" style="display: none;"><a href="../monthly-ticket/monthly-ticket.html">Monthly Tickets</a></li>
-            <li id="extend" style="display: none;"><a href="../extend-ticket/extend-ticket.html">Extend Ticket</a></li>
+            <li id="extend"><a href="extend-ticket.html" class="active">Extend Ticket</a></li>
         </ul>
         <a href="#" id="sign-out" class="sign-out" style="display: none;">Sign Out</a>
     </nav>
 
     <main>
-        <div class="purchase-container">
-            <h2>Cancel Your Ticket</h2>
-            <input type="text" id="vehicleIdDelete" placeholder="Enter Vehicle ID to Delete"/>
-            <button id="deleteTicketButton">Delete Ticket</button>
-            <p id="deleteMessage"></p>
+        <div class="service-grid">
         </div>
     </main>
 
     <footer>
         <p>&copy; EasyPark. All rights reserved.</p>
     </footer>
-
-    
 </body>
-</html>
+</html> 

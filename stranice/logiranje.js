@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         statusDiv.innerHTML = "✅ Ulogiran";
         document.getElementById('monthly-ticket').style.display = 'block';
         document.getElementById('login').style.display = 'none';
+        document.getElementById('extend').style.display = 'block';
 
         // Prikazivanje Sign Out gumba
         const signOutButton = document.getElementById('sign-out');
@@ -27,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Dodavanje funkcionalnosti za odjavu
         signOutButton.addEventListener("click", function () {
             localStorage.removeItem("info_korisnik");
-            window.location.reload();
+            window.location.href = "../pocetna/pocetna.html";
         });
 
     } else {
