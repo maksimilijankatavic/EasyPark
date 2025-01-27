@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!parkingData) return null;
   
       let price = 0;
-      price = parkingData.cijena_dnevne * 30;
+      price = (parkingData.cijena_dnevne * 30) * 0.3;
   
       if (price === null) {
         alert("Unable to retrieve parking data");
@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
   
             const availableSpots = parkingData.slobodna_mjesta;
-            const price = parkingData.cijena_dnevne * 30;
+            const price = (parkingData.cijena_dnevne * 30) * 0.3;
   
             if (availableSpots <= 0) {
             alert("No parking spots available. Please choose another location.");
@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
             selectedDate.setMonth(selectedDate.getMonth() + 1);
             const date = selectedDate.toISOString().replace("Z", "");
 
-            selectedDate.setHours(selectedDate.getHours() - 2);
+            selectedDate.setHours(selectedDate.getHours() - 1);
 
             const formattedDate = selectedDate.toLocaleString("en-US", {
                 weekday: "long",
