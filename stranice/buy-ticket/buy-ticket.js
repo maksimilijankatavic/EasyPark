@@ -169,11 +169,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const form = document.getElementById("ticketForm");
   form.addEventListener("submit", function (e) {
-    e.preventDefault(); // Prevent the form from submitting the traditional way
-    buyTicket(); // Call buyTicket function
+    e.preventDefault();
+    buyTicket();
   });
 
-  // Function to handle ticket purchase
   async function buyTicket() {
     const vehicleId = document.getElementById("plateNumber").value;
     const parkingId = parkingLocation.value;
@@ -185,7 +184,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     try {
-      // Fetch parking data to check available spots
       const parkingData = await fetchParkingData(parkingId);
       if (!parkingData) {
         alert("Unable to retrieve parking data. Please try again.");
@@ -203,17 +201,14 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // Get the current date and time
       let currentDate = new Date();
 
-      // Add time based on the selected duration
       if (duration === "hour") {
-        currentDate.setHours(currentDate.getHours() + 1); // Add 1 hour
+        currentDate.setHours(currentDate.getHours() + 1);
       } else if (duration === "day") {
-        currentDate.setDate(currentDate.getDate() + 1); // Add 1 day
+        currentDate.setDate(currentDate.getDate() + 1);
       }
 
-      // Adjust to local time zone
       let expiryTime = currentDate
         .toLocaleString("sv-SE", {
           timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -231,7 +226,16 @@ document.addEventListener("DOMContentLoaded", function () {
         hour12: true,
       });
 
-      // Check if the vehicle exists or add it
+      let infoKorisnik = localStorage.getItem("info_korisnik");
+      let fkKorisnik = null;
+
+      if (infoKorisnik) {
+        infoKorisnik = JSON.parse(infoKorisnik);
+        if (infoKorisnik.admin === false) {
+          fkKorisnik = infoKorisnik.id_osobe;
+        }
+      }
+
       const vehicleResponse = await fetch(
         "http://localhost:3000/vozilo/dodaj",
         {
@@ -241,7 +245,7 @@ document.addEventListener("DOMContentLoaded", function () {
           },
           body: JSON.stringify({
             idRegistarskaOzn: vehicleId,
-            fkKorisnik: null, // Optional, adjust based on your requirements
+            fkKorisnik: fkKorisnik,
           }),
         }
       );
@@ -252,7 +256,6 @@ document.addEventListener("DOMContentLoaded", function () {
         throw new Error(vehicleData.error || "Failed to check or add vehicle.");
       }
 
-      // Proceed with ticket creation or update
       const ticketResponse = await fetch(
         "http://localhost:3000/kupljena-karta",
         {
@@ -276,7 +279,6 @@ document.addEventListener("DOMContentLoaded", function () {
         );
       }
 
-      // Update parking income
       const incomeResponse = await fetch(
         "http://localhost:3000/parking/prihod",
         {
@@ -295,13 +297,11 @@ document.addEventListener("DOMContentLoaded", function () {
         throw new Error("Failed to update parking income.");
       }
 
-      // Populate ticket details
       document.getElementById("ticketVehicleId").textContent = vehicleId;
       document.getElementById("ticketParkingId").textContent = parkingId;
       document.getElementById("ticketExpiryDate").textContent =
         displayExpiryTime;
 
-      // Move to the ticket details step
       currentStep++;
       updateFormSteps();
       updateProgressBar();
