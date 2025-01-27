@@ -2,7 +2,7 @@ describe('Cancel Ticket Test', () => {
 
     beforeEach(() => {
       
-      cy.visit('http://127.0.0.1:5500/cancel-ticket.html');
+      cy.visit('http://127.0.0.1:5500/stranice/cancel-ticket/cancel-ticket.html');
     });
   
     it('should delete a ticket successfully with a valid vehicle ID', () => {
@@ -34,7 +34,7 @@ describe('Cancel Ticket Test', () => {
 
     beforeEach(() => {
       
-      cy.visit('http://127.0.0.1:5500/cancel-ticket.html');
+      cy.visit('http://127.0.0.1:5500/stranice/cancel-ticket/cancel-ticket.html');
     });
   
     it('should show an error message if the vehicle ID is not found in the database', () => {
