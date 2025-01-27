@@ -11,3 +11,21 @@
     }
 
 }
+
+/* Media query for mobile devices */
+@media (max-width: 1200px) {
+    nav {
+        display: flex; /* Ensure nav is a flex container */
+        flex-direction: column; /* Stack items vertically */
+        align-items: flex-end; /* Align items to the left */
+        width: 100%; /* Full width for nav */
+    }
+
+    /* Show the Sign Out button */
+    #sign-out {
+    display: block; /* Ensure Sign Out button is visible */
+    width: 100%; /* Full width for the Sign Out button */
+    text-align: center; /* Center text in the button */
+    margin-top: 0.5rem; /* Add some space above the button */
+    }
+}

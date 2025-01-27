@@ -73,3 +73,7 @@ button:hover {
 #label {
     padding-bottom: 4.5%;
 }
+
+.center-text {
+    text-align: center; /* Center the text */
+}
