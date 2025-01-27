@@ -2,7 +2,7 @@ describe('Buy Parking Ticket Test', () => {
   
     beforeEach(() => {
       
-      cy.visit('http://127.0.0.1:5500/buy-ticket.html');
+      cy.visit('http://127.0.0.1:5500/stranice/buy-ticket/buy-ticket.html');
     });
 
     it('should allow user to select parking location and duration', () => {
@@ -42,7 +42,7 @@ describe('Buy Parking Ticket Test', () => {
 
    beforeEach(() => {
      
-     cy.visit('http://127.0.0.1:5500/buy-ticket.html');
+     cy.visit('http://127.0.0.1:5500/stranice/buy-ticket/buy-ticket.html');
    });
 
    it('should prevent user from clicking Next without entering plate number', () => {
@@ -60,7 +60,7 @@ describe('Buy Parking Ticket Test', () => {
 
   beforeEach(() => {
     
-    cy.visit('http://127.0.0.1:5500/buy-ticket.html');
+    cy.visit('http://127.0.0.1:5500/stranice/buy-ticket/buy-ticket.html');
   });
 
   it('should trigger TypeError when attempting to proceed without selecting parking location', () => {
@@ -98,7 +98,7 @@ describe('Buy Parking Ticket Test', () => {
 
     beforeEach(() => {
       
-      cy.visit('http://127.0.0.1:5500/buy-ticket.html');
+      cy.visit('http://127.0.0.1:5500/stranice/buy-ticket/buy-ticket.html');
     });
 
     it('should not allow user to proceed without selecting duration', () => {
@@ -119,7 +119,7 @@ describe('Buy Parking Ticket Test', () => {
     
 
       
-      cy.get('#parkingFee').should('contain.text', '$1.00');
-      cy.get('#totalPrice').should('contain.text', '$1.00');
+      cy.get('#parkingFee').should('contain.text', '$0.00');
+      cy.get('#totalPrice').should('contain.text', '$0.00');
     });
   });

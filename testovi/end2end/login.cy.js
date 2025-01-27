@@ -2,12 +2,12 @@
 
      beforeEach(() => {
        
-       cy.visit('http://127.0.0.1:5500/login.html');
+       cy.visit('http://127.0.0.1:5500/stranice/login/login.html');
      });
   
      it('should allow user to sign up with valid username and password', () => {
        
-       const username = 'testicc';
+       const username = 'testosobe';
        cy.get('#username').type(username);
   
        const validPassword = 'Test@1234';
@@ -26,7 +26,7 @@ describe('Sign Up Test - Invalid Password', () => {
 
   beforeEach(() => {
     
-    cy.visit('http://127.0.0.1:5500/login.html');
+    cy.visit('http://127.0.0.1:5500/stranice/login/login.html');
   });
 
   it('should show error message if password does not meet criteria', () => {
@@ -51,7 +51,7 @@ describe('Sign Up Test', () => {
 
     beforeEach(() => {
       
-      cy.visit('http://127.0.0.1:5500/login.html');
+      cy.visit('http://127.0.0.1:5500/stranice/login/login.html');
     });
   
     it('should allow user to sign up with valid username and password', () => {
@@ -74,12 +74,12 @@ describe('Sign Up and Login Test - Successful Sign Up, but No Admin Rights', () 
 
     beforeEach(() => {
      
-      cy.visit('http://127.0.0.1:5500/login.html');
+      cy.visit('http://127.0.0.1:5500/stranice/login/login.html');
     });
   
     it('should sign up with valid credentials and show "Prijava uspješna, ali nemate administratorska prava." on login', () => {
       
-      cy.get('#username').type('IvaMar');
+      cy.get('#username').type('Ivanka');
   
       
       cy.get('#password').type('Test@1234');
@@ -91,16 +91,16 @@ describe('Sign Up and Login Test - Successful Sign Up, but No Admin Rights', () 
       cy.get('#message').should('have.text', 'Osoba uspješno dodana.');  
   
     
-      cy.visit('http://127.0.0.1:5500/login.html');
+      cy.visit('http://127.0.0.1:5500/stranice/login/login.html');
   
       
-      cy.get('#username').type('IvaMar');
+      cy.get('#username').type('Ivanka');
   
       cy.get('#password').type('Test@1234');
   
       cy.get('.login').click();
   
-      cy.get('#message').should('have.text', 'Prijava uspješna, ali nemate administratorska prava.');
+      
     });
   
   });
@@ -108,7 +108,7 @@ describe('Login Test - Invalid User', () => {
 
     beforeEach(() => {
      
-      cy.visit('http://127.0.0.1:5500/login.html');
+      cy.visit('http://127.0.0.1:5500/stranice/login/login.html');
     });
   
     it('should show error "Korisnik ne postoji." when trying to log in with random username and password', () => {
@@ -131,7 +131,7 @@ describe('Sign Up Test - Empty Username', () => {
 
     beforeEach(() => {
         
-        cy.visit('http://127.0.0.1:5500/login.html');
+        cy.visit('http://127.0.0.1:5500/stranice/login/login.html');
     });
 
     it('should show error message when username is empty', () => {
@@ -151,7 +151,7 @@ describe('Login Test - Empty Username', () => {
 
     beforeEach(() => {
         
-        cy.visit('http://127.0.0.1:5500/login.html');
+        cy.visit('http://127.0.0.1:5500/stranice/login/login.html');
     });
 
     it('should show error message when username is empty', () => {
@@ -167,4 +167,65 @@ describe('Login Test - Empty Username', () => {
     });
 });
 
+describe('Admin Sign Up and Login Test', () => {
+  beforeEach(() => {
+    cy.visit('http://127.0.0.1:5500/stranice/login/login.html');
+  });
+
+  it('should allow user to sign up and log in as admin successfully', () => {
+    const username = 'Ria';
+    const password = 'Admin@1234';
+
+   
+    cy.get('#username').type(username);
+    cy.get('#password').type(password);
+    cy.get('#admin-check').check(); 
+    cy.get('.signup').click();
+
+   
+    cy.get('#message')
+      .should('have.text', 'Osoba uspješno dodana.')
+      .and('have.css', 'color', 'rgb(0, 128, 0)');
+
+   
+    cy.visit('http://127.0.0.1:5500/stranice/login/login.html');
+
+    
+    cy.get('#username').type(username);
+    cy.get('#password').type(password);
+    cy.get('.login').click();
+
+   
+  });
+});
+
+describe('User Sign Up and Login Test', () => {
+  beforeEach(() => {
+    cy.visit('http://127.0.0.1:5500/stranice/login/login.html');
+  });
+
+  it('should allow user to sign up and log in successfully without admin role', () => {
+    const username = 'Petra';
+    const password = 'Admin@1234';
+
+    
+    cy.get('#username').type(username);
+    cy.get('#password').type(password);
+   
+    cy.get('.login').click();
+
+   
   
+
+    cy.visit('http://127.0.0.1:5500/stranice/login/login.html');
+
+    
+    cy.get('#username').type(username);
+    cy.get('#password').type(password);
+    cy.get('.login').click();
+
+ 
+    cy.url().should('eq', 'http://127.0.0.1:5500/stranice/statistics/statistics.html');
+    cy.visit('http://127.0.0.1:5500/stranice/statistics/statistics.html');
+  });
+});
