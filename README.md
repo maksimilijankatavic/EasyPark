@@ -45,15 +45,16 @@
    - U direktoriju server ručno kreirajte .env datoteku.
    - Unesite potrebne podatke.
    - pošto su u njoj povjerljivi podaci nije ovdje objavljen sadržaj
-4. (Ako ne koristite Firefox) Pokrenite aplikaciju
+4. (Ako ne koristite Firefox) Pokrenite aplikaciju:
 
    ```bash
    npm run pokreni
 
-6. (Ako koristite Firefox) Pokrenite aplikaciju
-```bash
+6. (Ako koristite Firefox) Pokrenite aplikaciju:
+   ```bash
    npm run pokreni_server
-```
+   ```
+
    - Navigirajte do mape stranice/pocetna u projektu.
    - Pokrenite pocetna.html datoteku koristeći Live Server u svom editoru (npr. VS Code) ili putem drugog lokalnog poslužitelja.
 
