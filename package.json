@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "pokreni_server": "node server/server.js",
+    "pokreni_aplikaciju": "start stranice/pocetna/pocetna.html",
+    "pokreni": "npm run pokreni_aplikaciju && npm run pokreni_server"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.47.10",
     "cors": "^2.8.5",
