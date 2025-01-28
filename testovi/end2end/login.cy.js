@@ -77,7 +77,7 @@ describe('Sign Up and Login Test - Successful Sign Up, but No Admin Rights', () 
       cy.visit('http://127.0.0.1:5500/stranice/login/login.html');
     });
   
-    it('should sign up with valid credentials and show "Prijava uspješna, ali nemate administratorska prava." on login', () => {
+    it('should sign up with valid credentials and show  on login', () => {
       
       cy.get('#username').type('Ivanka');
   
