@@ -29,6 +29,8 @@
 - Live Server ekstenzija za editor (npr. [VS Code Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)) ili neki drugi lokalni poslužitelj.
 
 ## Kako pokrenuti projekt
+
+
 1. Klonirajte repozitorij:
 
    ```bash
@@ -36,21 +38,22 @@
 2. Instalirajte potrebne pakete:
 
    ```bash
-   npm install express
-3. Uđite u direktorij server:
+   npm install 
 
-   ```bash
-   cd server
-4. Stvorite .env datoteku:
+3. Stvorite .env datoteku:
 
    - U direktoriju server ručno kreirajte .env datoteku.
    - Unesite potrebne podatke.
-5. Pokrenite server:
+   - pošto su u njoj povjerljivi podaci nije ovdje objavljen sadržaj
+4. (Ako ne koristite Firefox) Pokrenite aplikaciju
 
    ```bash
-   node server.js
-6. Otvorite aplikaciju koristeći Live Server:
+   npm run pokreni
 
+6. (Ako koristite Firefox) Pokrenite aplikaciju
+```bash
+   npm run pokreni_server
+```
    - Navigirajte do mape stranice/pocetna u projektu.
    - Pokrenite pocetna.html datoteku koristeći Live Server u svom editoru (npr. VS Code) ili putem drugog lokalnog poslužitelja.
 
