@@ -6,5 +6,6 @@ module.exports = defineConfig({
       
     },
     specPattern: 'testovi/end2end/**/*.cy.{js,jsx,ts,tsx}', 
+    supportFile: false,
   },
 });
